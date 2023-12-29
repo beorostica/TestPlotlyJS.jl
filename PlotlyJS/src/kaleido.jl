@@ -37,6 +37,7 @@ function _start_kaleido_process()
             no_sandbox = "--no-sandbox"
             Sys.isapple() ? `$(cmd) plotly --disable-gpu --single-process` : `$(cmd) plotly --disable-gpu $(no_sandbox)`
         end
+        @info "BIN = $(BIN)"
         @info "1 ..."
         kstdin = Pipe()
         kstdout = Pipe()
@@ -46,11 +47,19 @@ function _start_kaleido_process()
                              stdin=kstdin, stdout=kstdout, stderr=kstderr),
                     wait=false)
         @info "3 ..."
+        @info "kproc = $(kproc)"
         process_running(kproc) || error("There was a problem startink up kaleido.")
+        @info "kproc = $(kproc)"
         @info "4 ..."
+        @info "kstdout = $(kstdout)"
+        @info "kstderr = $(kstderr)"
+        @info "kstdin = $(kstdin)"
         close(kstdout.in)
         close(kstderr.in)
         close(kstdin.out)
+        @info "kstdout = $(kstdout)"
+        @info "kstderr = $(kstderr)"
+        @info "kstdin = $(kstdin)"
         @info "5 ..."
         Base.start_reading(kstderr.out)
         @info "6 ..."
@@ -58,10 +67,17 @@ function _start_kaleido_process()
         P.stdout = kstdout
         P.stderr = kstderr
         P.proc = kproc
+        @info "P.stdout = $(P.stdout)"
+        @info "P.stderr = $(P.stderr)"
+        @info "P.stdin = $(P.stdin)"
+        @info "P.proc = $(P.proc)"
 
         # read startup message and check for errors
         @info "7 ..."
+        @info "P.stdout = $(P.stdout)"
+        @info "kproc = $(kproc)"
         res = readline(P.stdout)
+        @info "res = $(res)"
         if length(res) == 0
             error("Could not start Kaleido process")
         end
