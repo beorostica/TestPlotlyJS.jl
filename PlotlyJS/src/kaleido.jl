@@ -25,6 +25,7 @@ function _start_kaleido_process()
     global P
     try
         @info "Try starting kaleido process"
+        @info "0 ..."
         BIN = let
             art = Kaleido_jll.artifact_dir
             cmd = if Sys.islinux() || Sys.isapple()
@@ -36,28 +37,36 @@ function _start_kaleido_process()
             no_sandbox = "--no-sandbox"
             Sys.isapple() ? `$(cmd) plotly --disable-gpu --single-process` : `$(cmd) plotly --disable-gpu $(no_sandbox)`
         end
+        @info "1 ..."
         kstdin = Pipe()
         kstdout = Pipe()
         kstderr = Pipe()
+        @info "2 ..."
         kproc = run(pipeline(BIN,
                              stdin=kstdin, stdout=kstdout, stderr=kstderr),
                     wait=false)
+        @info "3 ..."
         process_running(kproc) || error("There was a problem startink up kaleido.")
+        @info "4 ..."
         close(kstdout.in)
         close(kstderr.in)
         close(kstdin.out)
+        @info "5 ..."
         Base.start_reading(kstderr.out)
+        @info "6 ..."
         P.stdin = kstdin
         P.stdout = kstdout
         P.stderr = kstderr
         P.proc = kproc
 
         # read startup message and check for errors
+        @info "7 ..."
         res = readline(P.stdout)
         if length(res) == 0
             error("Could not start Kaleido process")
         end
 
+        @info "8 ..."
         js = JSON.parse(res)
         if get(js, "code", 0) != 0
             error("Could not start Kaleido process")
