@@ -1,5 +1,7 @@
 module TestPlotlyJS
 
-# Write your package code here.
+include("functions.jl")
+
+export greet_TestPlotlyJS
 
 end

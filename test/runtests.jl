@@ -2,5 +2,6 @@ using TestPlotlyJS
 using Test
 
 @testset "TestPlotlyJS.jl" begin
-    # Write your tests here.
+    @test TestPlotlyJS.greet_TestPlotlyJS() == "Hello TestPlotlyJS!"
+    @test TestPlotlyJS.greet_TestPlotlyJS() != "Hello world!"
 end
