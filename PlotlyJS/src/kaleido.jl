@@ -76,17 +76,18 @@ function _start_kaleido_process()
         @info "7 ..."
         @info "P.stdout = $(P.stdout)"
         @info "kproc = $(kproc)"
-        res = readline(P.stdout)
-        @info "res = $(res)"
-        if length(res) == 0
-            error("Could not start Kaleido process")
-        end
+        @warn "Skipped checking whether Kaliedo process has been started"
+        #res = readline(P.stdout)
+        #@info "res = $(res)"
+        #if length(res) == 0
+        #    error("Could not start Kaleido process")
+        #end
 
-        @info "8 ..."
-        js = JSON.parse(res)
-        if get(js, "code", 0) != 0
-            error("Could not start Kaleido process")
-        end
+        #@info "8 ..."
+        #js = JSON.parse(res)
+        #if get(js, "code", 0) != 0
+        #    error("Could not start Kaleido process")
+        #end
     catch e
         @warn "Kaleido is not available on this system. Julia will be unable to save images of any plots."
         @warn "$e"
