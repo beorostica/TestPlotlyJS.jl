@@ -8,7 +8,7 @@ mutable struct Pipes
     Pipes() = new()
 end
 
-P = Pipes()
+const P = Pipes()
 
 const ALL_FORMATS = ["png", "jpeg", "webp", "svg", "pdf", "eps", "json"]
 const TEXT_FORMATS = ["svg", "json", "eps"]
