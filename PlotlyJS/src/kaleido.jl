@@ -75,7 +75,7 @@ function _start_kaleido_process()
         @info "P.stdout = $(P.stdout)"
         @info "kproc = $(kproc)"
         @warn "Skipped checking whether Kaliedo process has been started"
-        res = readline(P.stdout)
+        res = readline(P.stdout; keep=true)
         @info "res = $(res)"
         if length(res) == 0
             error("Could not start Kaleido process")
