@@ -1,9 +1,9 @@
 using Kaleido_jll
 
 mutable struct Pipes
-    stdin::Pipe
-    stdout::Pipe
-    stderr::Pipe
+    stdin::Base.PipeEndpoint
+    stdout::Base.PipeEndpoint
+    stderr::Base.PipeEndpoint
     proc::Base.Process
     Pipes() = new()
 end
@@ -39,9 +39,9 @@ function _start_kaleido_process()
         end
         @info "BIN = $(BIN)"
         @info "1 ..."
-        kstdin = Pipe()
-        kstdout = Pipe()
-        kstderr = Pipe()
+        kstdin = Base.PipeEndpoint()
+        kstdout = Base.PipeEndpoint()
+        kstderr = Base.PipeEndpoint()
         @info "2 ..."
         #kproc = run(pipeline(BIN; stdin=kstdin, stdout=kstdout, stderr=kstderr), wait=false)
         kproc = run(BIN, kstdin, kstdout, kstderr, wait=false)
@@ -53,14 +53,14 @@ function _start_kaleido_process()
         @info "kstdout = $(kstdout)"
         @info "kstderr = $(kstderr)"
         @info "kstdin = $(kstdin)"
-        close(kstdout.in)
-        close(kstderr.in)
-        close(kstdin.out)
+        #close(kstdout.in)
+        #close(kstderr.in)
+        #close(kstdin.out)
         @info "kstdout = $(kstdout)"
         @info "kstderr = $(kstderr)"
         @info "kstdin = $(kstdin)"
         @info "5 ..."
-        Base.start_reading(kstderr.out)
+        #Base.start_reading(kstderr.out)
         @info "6 ..."
         P.stdin = kstdin
         P.stdout = kstdout
