@@ -75,7 +75,7 @@ function _start_kaleido_process()
         @info "P.stdout = $(P.stdout)"
         @info "kproc = $(kproc)"
         #res = readline(P.stdout)
-        vec = readuntil(s, 0x0a, keep=true)::Vector{UInt8}
+        vec = readuntil(P.stdout, 0x0a, keep=true)::Vector{UInt8}
         res = String(vec)
         @info "res = $(res)"
         if length(res) == 0
@@ -127,7 +127,7 @@ function savefig(
 
     # read stdout and parse to json
     #res = readline(P.stdout)
-    vec = readuntil(s, 0x0a, keep=true)::Vector{UInt8}
+    vec = readuntil(P.stdout, 0x0a, keep=true)::Vector{UInt8}
     res = String(vec)
     js = JSON.parse(res)
 
