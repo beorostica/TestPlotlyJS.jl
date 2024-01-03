@@ -76,9 +76,7 @@ function _start_kaleido_process()
         @info "P.stdout = $(P.stdout)"
         @info "kproc = $(kproc)"
         #res = readline(P.stdout)
-        vec = readavailable(P.stdout)
-        @info "readavailable(P.stdout): $(vec)"
-        res = String(vec)
+        res = readuntil(kproc, "\n", keep=true)
         @info "res = $(res)"
         if length(res) == 0
             error("Could not start Kaleido process")
