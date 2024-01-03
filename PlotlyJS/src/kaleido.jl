@@ -74,8 +74,8 @@ function _start_kaleido_process()
         @info "7 ..."
         @info "P.stdout = $(P.stdout)"
         @info "kproc = $(kproc)"
-        @warn "Skipped checking whether Kaliedo process has been started"
-        res = readline(P.stdout; keep=true)
+        #res = readline(P.stdout)
+        res = String(readavailable(P.stdout))
         @info "res = $(res)"
         if length(res) == 0
             error("Could not start Kaleido process")
@@ -125,7 +125,8 @@ function savefig(
     flush(P.stdin)
 
     # read stdout and parse to json
-    res = readline(P.stdout)
+    #res = readline(P.stdout)
+    res = String(readavailable(P.stdout))
     js = JSON.parse(res)
 
     # check error code
