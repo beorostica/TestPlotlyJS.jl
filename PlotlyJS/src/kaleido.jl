@@ -75,8 +75,8 @@ function _start_kaleido_process()
         @info "7 ..."
         @info "P.stdout = $(P.stdout)"
         @info "kproc = $(kproc)"
-        #res = readline(P.stdout)
-        res = readuntil(kproc, "\n", keep=true)
+        res = readline(P.stdout)
+        #res = readuntil(kproc, "\n", keep=true)
         @info "res = $(res)"
         if length(res) == 0
             error("Could not start Kaleido process")
