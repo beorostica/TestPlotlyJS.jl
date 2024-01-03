@@ -44,7 +44,7 @@ function _start_kaleido_process()
         kstderr = Pipe()
         @info "2 ..."
         kproc = run(pipeline(BIN; stdin=kstdin, stdout=kstdout, stderr=kstderr), wait=false)
-        sleep(1)
+        sleep(30)
         @info "3 ..."
         @info "kproc = $(kproc)"
         process_running(kproc) || error("There was a problem startink up kaleido.")
